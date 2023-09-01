@@ -1,7 +1,7 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
-var length;
+
 
 var numeric = "0123456789";
 var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -9,38 +9,58 @@ var lowerCase = "abcdefghijklmnopqrstuvwxyz";
 var specialChars = "!#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
 
 
-
-//Prompts order
-// Ask for length input from 8-128 
-// Ask for lowerCase
-// Ask for upperCase
-// Ask for numeric
-// Ask for specialChars
-
-
 // Write password to the #password input
 function writePassword() {
-  length = getLength();
-  var password = generatePassword();
+  // Get length using function
+  var lengthInput = getLength();
+  var getSpecial = window.confirm("Click OK to confirm inlcuding special characters.")
+  var getNum = window.confirm("Click OK to confirm inlcuding numeric characters.")
+  var getLower = window.confirm("Click OK to confirm inlcuding lowercase characters.")
+  var getUpper = window.confirm("Click OK to confirm inlcuding uppercase characters.")
+  
+
+  var password = generatePassword(lengthInput, getSpecial, getNum, getLower, getUpper);
   var passwordText = document.querySelector("#password");
   passwordText.value = password;
+
+
+}
+
+// Password Gen Function
+function generatePassword(length, hasSpecialChar, hasNumeric, hasLowerCase, hasUpperCase){
+  var availableChars = "";
+  if (hasSpecialChar){
+    availableChars += specialChars;
+  } 
+  if (hasNumeric){
+    availableChars+= numeric;
+  }
+  if(hasLowerCase){
+    availableChars += lowerCase;
+  }
+  if(hasUpperCase){
+    availableChars += upperCase;
+  }
+  return availableChars;
+
 
 }
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
-function getLength(){
-  var lengthInput = window.prompt("Input length of password");
-  
-  if (lengthInput < 8){
-    window.alert("Minimum length is 8");
-    
-  }
-}
 
-// Password Gen Function
-function generatePassword(){
-  var test = "test";
-  return test;
+var getLength = function(){
+  var checkLength = window.prompt("How many characters would you like your password to contain?");
+  if(!checkLength){
+    return;
+  }
+  checkLength = Math.floor(checkLength);
+  if (checkLength >= 8 && checkLength <= 128) {
+    return checkLength;
+  } else {
+    window.alert("Please enter a valid length between 8 and 128.");
+    // writePassword();
+    return;
+  }
 }
