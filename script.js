@@ -21,6 +21,11 @@ function writePassword() {
 
     // call generatePassword function with bool parameters
     var password = generatePassword(lengthInput, getSpecial, getNum, getLower, getUpper);
+
+    //Close window if generated password is empty
+    if(password.length === 0){
+      return;
+    }
     var passwordText = document.querySelector("#password");
     passwordText.value = password;
   } else {
@@ -52,7 +57,6 @@ function generatePassword(hasLength, hasSpecialChar, hasNumeric, hasLowerCase, h
 
   // assign blank array for available characters to use
   var availableChars = [];
-
   // Check if each boolean is true and add to the array
   if (hasSpecialChar) {
     availableChars = availableChars.concat(specialChars);
@@ -70,6 +74,11 @@ function generatePassword(hasLength, hasSpecialChar, hasNumeric, hasLowerCase, h
   // assign blank string for password
   var genPass = "";
 
+  //Check if user has not pick any character type, send alert and close window
+  if(availableChars.length === 0){
+    window.alert("Please choose atleast one character type.")
+    return;
+  }
   // for loop to iterate from all available characters with the given length
   for (var i = 0; i < hasLength; i++) {
     // assign random number with index based on available characters
