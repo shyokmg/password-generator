@@ -2,7 +2,7 @@
 
 ## Description
 
-This Website is password generator that accepts the users input of length and choose which type of available characters to use
+This website is a password generator that generates a randomized password based on the user's given input of length and a confirmation of which type of characters to use.
 
 ## Password Generator website
 ![Password Generator](./images/pass_gen.png)
